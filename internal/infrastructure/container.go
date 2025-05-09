@@ -7,16 +7,19 @@ import (
 	"xyz_golang/internal/consumer"
 	"xyz_golang/internal/domain"
 	"xyz_golang/internal/limit"
+	"xyz_golang/internal/transaction"
 	"xyz_golang/pkg/xlogger"
 )
 
 var (
 	cfg config.Config
 
-	consumerRepository domain.ConsumerRepository
-	limitRepository    domain.LimitRepository
+	consumerRepository    domain.ConsumerRepository
+	limitRepository       domain.LimitRepository
+	transactionRepository domain.TransactionRepository
 
-	consumerService domain.ConsumerService
+	consumerService    domain.ConsumerService
+	transactionService domain.TransactionService
 )
 
 func init() {
@@ -33,6 +36,8 @@ func init() {
 
 	consumerRepository = consumer.NewPgsqlUserRepository(db)
 	limitRepository = limit.NewPgsqlLimitRepository(db)
+	transactionRepository = transaction.NewPgsqlTransactionRepository(db)
 
 	consumerService = consumer.NewConsumerService(consumerRepository, limitRepository)
+	transactionService = transaction.NewTransactionService(consumerRepository, transactionRepository)
 }
