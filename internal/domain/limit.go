@@ -14,6 +14,12 @@ type Limit struct {
 	UpdatedAt  time.Time `json:"updated_at" gorm:"autoUpdateTime"`
 }
 
+type LimitRequest struct {
+	Tenor  int     `json:"tenor" validate:"required"`
+	Amount float64 `json:"amount" validate:"required"`
+}
+
 type LimitRepository interface {
 	LimitByConsumerID(id uuid.UUID) (*[]Limit, error)
+	Store(limit *Limit) error
 }

@@ -21,3 +21,7 @@ func (r *pgsqlLimitRepository) LimitByConsumerID(id uuid.UUID) (*[]domain.Limit,
 	}
 	return &limit, nil
 }
+
+func (r *pgsqlLimitRepository) Store(limit *domain.Limit) error {
+	return r.db.Create(limit).Error
+}
