@@ -1,0 +1,191 @@
+{
+	"info": {
+		"_postman_id": "5a0ef9d2-7905-49f0-bd16-4c111d6f62a2",
+		"name": "xyz",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6217148"
+	},
+	"item": [
+		{
+			"name": "consumer",
+			"item": [
+				{
+					"name": "get by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/consumer/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"consumer",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "fac4f3b2-218d-448c-84bc-3440494eda31"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user limit",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/consumer/:id/limit",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"consumer",
+								":id",
+								"limit"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "fac4f3b2-218d-448c-84bc-3440494eda31"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "input limit customer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tenor\": 12,\n    \"amount\": 1000000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/consumer/:id/limit",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"consumer",
+								":id",
+								"limit"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "7eefb910-2b18-4833-b567-bba52447e7e1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create consumer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nik\": \"12345556789\",\n    \"full_name\": \"Lorem\",\n    \"legal_name\": \"Ipsum\",\n    \"place_of_birth\": \"Jakarta\",\n    \"date_of_birth\": \"2001-01-20\",\n    \"salary\": 10000000,\n    \"photo_ktp\": \"google.jpg\",\n    \"photo_selfie\": \"selfie.jpg\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/consumer",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"consumer"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "transaction",
+			"item": [
+				{
+					"name": "store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"consumer_id\": \"fac4f3b2-218d-448c-84bc-3440494eda31\",\n    \"contract_number\": \"1321312312\",\n    \"tenor\": 6,\n    \"otr\": 1,\n    \"admin_fee\": 12000,\n    \"installment\": 3,\n    \"interest\": 10,\n    \"asset_name\": \"something\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/transaction",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"transaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/transaction/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"transaction",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "9940e176-abf0-4d5f-9016-7677b6c20992"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
