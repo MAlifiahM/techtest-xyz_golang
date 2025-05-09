@@ -25,7 +25,7 @@ type ConsumerRequest struct {
 	FullName     string  `json:"full_name" validate:"required"`
 	LegalName    string  `json:"legal_name"`
 	PlaceOfBirth string  `json:"place_of_birth" validate:"required"`
-	DateOfBirth  string  `json:"date_of_birth" validate:"required"`
+	DateOfBirth  string  `json:"date_of_birth" validate:"required" faker:"date"`
 	Salary       float64 `json:"salary"`
 	PhotoKTP     string  `json:"photo_ktp"`
 	PhotoSelfie  string  `json:"photo_selfie"`

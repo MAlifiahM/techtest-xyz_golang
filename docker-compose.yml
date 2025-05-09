@@ -13,6 +13,29 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U user -d xyz_multifinance" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: xyz-golang-app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      IS_DEVELOPMENT: true
+      PROXY_HEADER: X-Forwarded-For
+      DB_DRIVER: postgres
+      DB_DSN: 'postgres://user:passw0rd@localhost:5432/xyz_multifinance?sslmode=disable'
+      LOG_FIELDS: timestamp,level,message
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
 
 volumes:
   pgdata:
