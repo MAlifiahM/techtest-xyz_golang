@@ -40,4 +40,5 @@ type ConsumerService interface {
 	GetByID(id uuid.UUID) (*Consumer, error)
 	GetLimit(id uuid.UUID) (*[]Limit, error)
 	Store(consumer *Consumer) error
+	StoreLimit(limit *Limit) error
 }

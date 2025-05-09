@@ -22,6 +22,7 @@ func NewHttpHandler(r fiber.Router, consumerSvc domain.ConsumerService) {
 	r.Post("/", validation.New[domain.ConsumerRequest](), handler.Store)
 	r.Get("/:id", handler.GetByID)
 	r.Get("/:id/limit", handler.GetLimit)
+	r.Post(":id/limit", validation.New[domain.LimitRequest](), handler.StoreLimit)
 }
 
 func (h *HttpHandler) GetByID(c *fiber.Ctx) error {
@@ -121,5 +122,38 @@ func (h *HttpHandler) Store(c *fiber.Ctx) error {
 		Status:  true,
 		Message: "success",
 		Data:    consumer,
+	})
+}
+
+func (h *HttpHandler) StoreLimit(c *fiber.Ctx) error {
+	limitReq := utilities.ExtractStructFromValidator[domain.LimitRequest](c)
+
+	consumerID, err := uuid.Parse(c.Params("id"))
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(domain.Response{
+			Status:  false,
+			Message: err.Error(),
+			Data:    nil,
+		})
+	}
+
+	limit := &domain.Limit{
+		ConsumerID: consumerID,
+		Tenor:      limitReq.Tenor,
+		Amount:     limitReq.Amount,
+	}
+
+	if err := h.consumerSvc.StoreLimit(limit); err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(domain.Response{
+			Status:  false,
+			Message: err.Error(),
+			Data:    nil,
+		})
+	}
+
+	return c.Status(http.StatusCreated).JSON(domain.Response{
+		Status:  true,
+		Message: "success",
+		Data:    limit,
 	})
 }

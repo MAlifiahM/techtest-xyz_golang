@@ -46,3 +46,15 @@ func (s *ConsumerService) GetLimit(id uuid.UUID) (*[]domain.Limit, error) {
 func (s *ConsumerService) Store(consumer *domain.Consumer) error {
 	return s.consumerRepo.Store(consumer)
 }
+
+func (s *ConsumerService) StoreLimit(limit *domain.Limit) error {
+	_, err := s.consumerRepo.GetByID(limit.ConsumerID)
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return fiber.ErrNotFound
+		}
+		return err
+	}
+
+	return s.limitRepo.Store(limit)
+}
