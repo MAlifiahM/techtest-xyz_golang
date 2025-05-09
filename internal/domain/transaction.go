@@ -19,3 +19,24 @@ type Transaction struct {
 	CreatedAt      time.Time `json:"created_at" gorm:"autoCreateTime"`
 	UpdatedAt      time.Time `json:"updated_at" gorm:"autoUpdateTime"`
 }
+
+type TransactionRequest struct {
+	ConsumerID     uuid.UUID `json:"consumer_id" validate:"required"`
+	ContractNumber string    `json:"contract_number" validate:"required"`
+	Tenor          int       `json:"tenor" validate:"required"`
+	OTR            float64   `json:"otr" validate:"required"`
+	AdminFee       float64   `json:"admin_fee"`
+	Installment    float64   `json:"installment"`
+	Interest       float64   `json:"interest"`
+	AssetName      string    `json:"asset_name" validate:"required"`
+}
+
+type TransactionRepository interface {
+	Store(transaction *Transaction) error
+	GetByID(id uuid.UUID) (*Transaction, error)
+}
+
+type TransactionService interface {
+	Store(transaction *Transaction) error
+	GetByID(id uuid.UUID) (*Transaction, error)
+}
